@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "mi-proyecto"
+version = "0.1.0"
+description = "Mi proyecto de desarrollo con Docker y Poetry"
+authors = ["Tu Nombre <tu.email@ejemplo.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+# Agrega aquí tus dependencias
+# Por ejemplo:
+# fastapi = "^0.100.0"
+# uvicorn = "^0.23.0"
+fastapi = "^0.115.11"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.4.0"
+black = "^23.7.0"
+flake8 = "^6.1.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

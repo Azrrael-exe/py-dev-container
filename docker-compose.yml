@@ -1,0 +1,41 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development 
+    volumes:
+      - .:/app  # Monta el directorio actual en /app para desarrollo
+    ports:
+      - "8000:8000"  # Ajusta según tus necesidades
+    environment:
+      - PYTHONPATH=/app
+      - ENV=development
+    # Para mantener el contenedor en ejecución y permitir desarrollo interactivo
+    stdin_open: true
+    tty: true
+    # Entrar directamente a una shell interactiva en lugar de ejecutar la aplicación
+    command: ["/bin/bash"]
+    
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile.jupyter
+    volumes:
+      - .:/app  # Monta el directorio actual en /app
+    ports:
+      - "8888:8888"  # Puerto para el servidor Jupyter
+    environment:
+      - PYTHONPATH=/app
+      - ENV=development
+    command: >
+      jupyter lab --ip=0.0.0.0 
+      --port=8888 
+      --no-browser 
+      --NotebookApp.token='' 
+      --NotebookApp.password='' 
+      --NotebookApp.allow_origin='*' 
+      --NotebookApp.root_dir=/app
+      --NotebookApp.disable_check_xsrf=True
+      --NotebookApp.tornado_settings="{'headers':{'Content-Security-Policy':'frame-ancestors self *'}}"
+      --allow-root
